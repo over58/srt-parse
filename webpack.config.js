@@ -17,6 +17,16 @@ const config = {
   module: {
     rules: [
       {
+        test: /\.(js|vue)$/,
+        loader: 'eslint-loader',
+        include: path.join(__dirname, './src/lib'),
+        enforce: 'pre',
+        exclude: [
+          path.join(__dirname, 'node_modules'),
+          path.join(__dirname, 'dist')
+        ]
+      },
+      {
         test: /\.js$/,
         loader: 'babel-loader',
         include: path.join(__dirname, 'src'),
@@ -28,7 +38,7 @@ const config = {
       {
         test: /\.vue$/,
         loader: 'vue-loader',
-        include: path.join(__dirname, 'src'),
+        include: path.join(__dirname, 'src/lib'),
         exclude: /node_modules/
       },
       {

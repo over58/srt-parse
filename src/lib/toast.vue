@@ -7,15 +7,15 @@
 </template>
 
 <script>
-  export default {
-    name: 'toast',
-    data(){
-      return {
-        visible:true,
-        message:''
-      }
+export default {
+  name: 'toast',
+  data () {
+    return {
+      visible: true,
+      message: ''
     }
   }
+}
 </script>
 
 <style lang='scss' scoped>
