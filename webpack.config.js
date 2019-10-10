@@ -1,18 +1,30 @@
-var webpack = require('webpack');
-const VueLoaderPlugin = require('vue-loader/lib/plugin');
-var MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+var webpack = require('webpack')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
+var MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
 
-var path = require('path');
+var path = require('path')
 const config = {
   mode: 'development',
-  entry: './src/lib/index.js',
+  optimization: {
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        test: /\.min\.js$/
+      })
+    ]
+  },
+  entry: {
+    'vue-toast-xyc': './src/lib/index.js',
+    'vue-toast-xyc.min': './src/lib/index.js'
+  },
   output: {
     path: path.join(__dirname, './dist'),
     publicPath: '',
-    filename: 'vue-toast-xyc.js',
+    filename: '[name].js',
     libraryTarget: 'umd',
-    library: 'VueToastX'
+    library: 'VueToastXYC'
   },
   module: {
     rules: [
@@ -55,14 +67,16 @@ const config = {
     ]
   },
   plugins: [new VueLoaderPlugin(), new CleanWebpackPlugin()]
-};
+}
 
-console.log(`---------------- 当前环境：${process.env.NODE_ENV} ------------------`);
+console.log(
+  `---------------- 当前环境：${process.env.NODE_ENV} ------------------`
+)
 if (process.env.NODE_ENV === 'development') {
   config.plugins.push(
     new MiniCssExtractPlugin({
       filename: 'style.css'
     })
-  );
+  )
 }
-module.exports = config;
+module.exports = config
