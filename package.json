@@ -1,6 +1,6 @@
 {
   "name": "vue-toast-xyc",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "a toast plugin",
   "main": "dist/vue-toast-xyc.js",
   "scripts": {
