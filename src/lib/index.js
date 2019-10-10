@@ -32,14 +32,15 @@ Toast.install = (Vue, options) => {
         callback && callback()
       }, 500)
     }, opt.duration)
-  };
+  }
   // 后期扩展
-  ['show', 'success', 'info', 'error'].forEach(function (type) {
+  ;['show', 'success', 'info', 'error'].forEach(function (type) {
     Vue.prototype.$toast[type] = function (tips, option) {
       return Vue.prototype.$toast(tips, option)
     }
   })
 }
+
 if (typeof window !== 'undefined' && window.Vue) {
   window.Vue.use(Toast)
 }
