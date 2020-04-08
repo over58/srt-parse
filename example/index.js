@@ -1,4 +1,4 @@
-const parseSrt = require('../dist/srt-parse.js')
+const parseSrt = require('../dist/srt-parser.js')
 const fs = require('fs')
 const path = require('path')
 

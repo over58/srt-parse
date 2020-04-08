@@ -3,24 +3,13 @@ a toast plugin
 
 # Usage
 ```
-import Vue from 'vue'
-import Toast from 'vue-toast-xyc'
+const parseSrt = require("srt-parse-xyc");
 
-Vue.use(Toast)
 
-this.$toast.show("hello,toast")
+// srtStr：字幕字符串
+parseSrt(srtStr)
 
-or
- 
-this.$toast.show("hello,toast",{
-  duration:3000
-})
- 
-or
- 
-this.$toast.show("hello,toast",function(){
-    //to-do 
-})
+
 
 ```
 

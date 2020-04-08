@@ -13,15 +13,15 @@ const config = {
     ],
   },
   entry: {
-    "srt-parse": "./src/index.js",
-    "srt-parse.min": "./src/index.js",
+    "srt-parser": "./src/index.js",
+    "srt-parser.min": "./src/index.js",
   },
   output: {
     path: path.join(__dirname, "./dist"),
     publicPath: "",
     filename: "[name].js",
     globalObject: "this",
-    library: "srtParse",
+    library: "srtParser",
     libraryTarget: "umd",
   },
   module: {

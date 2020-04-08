@@ -1,8 +1,8 @@
 {
-  "name": "srt-parse",
-  "version": "1.0.0",
+  "name": "srt-parse-xyc",
+  "version": "1.0.1",
   "description": "srt parser",
-  "main": "dist/srt-parse.min.js",
+  "main": "dist/srt-parser.min.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config webpack.config.js"
@@ -40,6 +40,6 @@
     "url": "https://github.com/over58/srt-parse.git"
   },
   "bugs": {
-    "url": "https://github.com/xuyongchaos/vue-toast-xyc/issues"
+    "url": "https://github.com/over58/srt-parse/issues"
   }
 }
