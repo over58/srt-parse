@@ -1,39 +1,48 @@
-module.exports = function parseSrt (srt) {
+module.exports = function parseSrt (srt, opts) {
+  var options = Object.assign({ report: true }, opts)
   const subtitles = []
-  const textSubtitles = srt.split('\r\n\r\n') // 每条字幕的信息，包含了序号，时间，字幕内容
-  for (let i = 0; i < textSubtitles.length; i++) {
-    const textSubtitle = textSubtitles[i].split('\n')
+  const textSubtitles = srt.split('\r\n\r\n').filter(x => x) // 每条字幕的信息，包含了序号，时间，字幕内容
+  try {
+    for (let i = 0; i < textSubtitles.length; i++) {
+      const textSubtitle = textSubtitles[i].split('\n').filter(x => x.trim())
+      if (options.report) {
+        console.log(`第${i + 1}条字幕:`, textSubtitle)
+      }
+      if (textSubtitle.length >= 2) {
+        const sequence = textSubtitle[0]
+        const startTime = toSecond(textSubtitle[1].split(/\s*-->\s*/)[0].trim())
+        const endTime = toSecond(textSubtitle[1].split(/\s*-->\s*/)[1].trim())
+        let subtitleEn = ''
+        let subtitle = ''
 
-    if (textSubtitle.length >= 2) {
-      const sn = textSubtitle[0]
-      const startTime = toSecond(textSubtitle[1].split(' --> ')[0].trim())
-      const endTime = toSecond(textSubtitle[1].split(' --> ')[1].trim())
-      let contentEN = ''
-      let contentCN = ''
-
-      for (var j = 2; j < textSubtitle.length; j++) {
-        if (/[\u4e00-\u9fa5]/g.test(textSubtitle[j])) {
-          contentCN += textSubtitle[j] + '\n'
-        } else {
-          contentEN += textSubtitle[j] + '\n'
+        for (var j = 2; j < textSubtitle.length; j++) {
+          if (/[\u4e00-\u9fa5]/g.test(textSubtitle[j])) {
+            subtitle += textSubtitle[j] + '\n'
+          } else {
+            subtitleEn += textSubtitle[j] + '\n'
+          }
         }
-      }
 
-      const subtitle = {
-        sn: sn.trim(),
-        startTime: startTime,
-        endTime: endTime,
-        contentEN: contentEN.trim(),
-        contentCN: contentCN.trim()
+        const t = {
+          sequence: +sequence,
+          startTime: parseInt(startTime * 1000),
+          endTime: parseInt(endTime * 1000),
+          subtitleEn: subtitleEn.trim(),
+          subtitle: subtitle.trim()
+        }
+        subtitles.push(t)
       }
-      subtitles.push(subtitle)
     }
-  }
 
-  const { endTime: e = 0 } = subtitles[subtitles.length - 1]
-  const minutes = parseInt(e / 60)
-  const seconds = parseInt(e % 60)
-  return { subtitles, minutes, seconds }
+    const { endTime: e = 0 } = subtitles[subtitles.length - 1]
+    const minutes = parseInt(e / 60)
+    const seconds = parseInt(e % 60)
+    console.log({ subtitles, minutes, seconds, duration: e })
+    return { subtitles, minutes, seconds, duration: e }
+  } catch (err) {
+    console.log(err)
+    return null
+  }
 }
 
 /**
