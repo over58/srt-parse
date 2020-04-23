@@ -15,7 +15,7 @@ parseSrt(srtStr)
 const parseSrt = require("srt-parse-xyc");
 
 // srtStr：字幕字符串
-report:true将打印每一条解析后的字幕，便于查找问题, 默认为true
+// report:true将打印每一条解析后的字幕，便于查找问题, 默认为true
 parseSrt(srtStr, { report: false})
 ```
 
